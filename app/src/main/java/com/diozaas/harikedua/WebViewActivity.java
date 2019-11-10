@@ -19,9 +19,10 @@ public class WebViewActivity extends AppCompatActivity {
 
         webViewYoutube = (WebView)findViewById(R.id.webview_youtube);
         webViewYoutube.getSettings().setJavaScriptEnabled(true);
-        webViewYoutube.setWebViewClient(new MyBrowser());
-//        webViewYoutube.loadUrl("https://m.youtube.com");
-        webViewYoutube.loadUrl("http://mips.msalgroup.com:8181/mips_home");
+        webViewYoutube.setWebViewClient(new WebViewClient());
+//        webViewYoutube.setWebViewClient(new MyBrowser());
+        webViewYoutube.loadUrl("https://m.youtube.com");
+//        webViewYoutube.loadUrl("http://mips.msalgroup.com:8181/mips_home");
 //        webViewYoutube.setWebChromeClient(new WebChromeClient());
     }
 
@@ -34,7 +35,19 @@ public class WebViewActivity extends AppCompatActivity {
         }
     }
 
-//    private class MyBrowser extends WebViewClient {
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        // jika tekan back, kembali ke halaman sebelumnya, tidak langsung close
+        if (webViewYoutube.canGoBack()){
+            webViewYoutube.goBack();
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
+    //    private class MyBrowser extends WebViewClient {
 //        @Override
 //        public boolean shouldOverRideUrlLoading(WebView webView, String url) {
 //            webViewYoutube.loadUrl(url);
